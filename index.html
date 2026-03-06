@@ -1,182 +1,159 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Shikha's Birthday</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Shikha Bhabhi!</title>
+    <style>
+        :root {
+            --primary-gold: #D4AF37;
+            --soft-pink: #FFB6C1;
+            --deep-purple: #2D0B5A;
+        }
 
-<style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100-vh;
+            overflow-x: hidden;
+        }
 
-body{
-margin:0;
-background:black;
-font-family:Arial;
-overflow:hidden;
-color:white;
-text-align:center;
-}
+        /* Floating Balloons Animation */
+        .balloon-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
 
-#startScreen{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-}
+        .balloon {
+            position: absolute;
+            bottom: -100px;
+            width: 40px;
+            height: 50px;
+            background: var(--soft-pink);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float up 8s infinite ease-in;
+        }
 
-button{
-padding:18px 40px;
-font-size:22px;
-border:none;
-border-radius:50px;
-background:linear-gradient(45deg,#ff0080,#ff8c00);
-color:white;
-cursor:pointer;
-box-shadow:0 0 25px #ff0080;
-}
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-120vh) rotate(20deg); opacity: 0; }
+        }
 
-button:hover{
-transform:scale(1.1);
-}
+        /* The Main Card */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3rem;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            z-index: 1;
+            max-width: 600px;
+            width: 90%;
+            animation: fadeIn 2s ease-out;
+        }
 
-.message{
-position:absolute;
-width:100%;
-top:40%;
-font-size:45px;
-opacity:0;
-transition:2s;
-}
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #f8b500, #fceabb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
 
-.show{
-opacity:1;
-}
+        .bhabhi-name {
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            font-size: 4rem;
+            color: var(--soft-pink);
+            display: block;
+            margin: 10px 0;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
 
-#cake{
-font-size:120px;
-position:absolute;
-bottom:20%;
-left:50%;
-transform:translateX(-50%);
-opacity:0;
-transition:2s;
-}
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #fff, 0 0 20px var(--soft-pink); }
+            to { text-shadow: 0 0 20px #fff, 0 0 30px #ff1493; }
+        }
 
-.balloon{
-position:absolute;
-font-size:35px;
-animation:float 8s linear infinite;
-}
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #d1d1d1;
+        }
 
-@keyframes float{
-0%{transform:translateY(100vh)}
-100%{transform:translateY(-120vh)}
-}
+        .btn {
+            margin-top: 2rem;
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
 
-.star{
-position:absolute;
-width:2px;
-height:2px;
-background:white;
-}
+        .btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px rgba(255, 65, 108, 0.6);
+        }
 
-.firework{
-position:absolute;
-font-size:40px;
-animation:explode 1.5s ease-out forwards;
-}
-
-@keyframes explode{
-0%{transform:scale(0)}
-100%{transform:scale(3);opacity:0}
-}
-
-</style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
-
 <body>
 
-<div id="startScreen">
-<h1>✨ A Special Surprise ✨</h1>
-<button onclick="start()">Begin Shikha's Birthday</button>
-</div>
+    <div class="balloon-container" id="balloons"></div>
 
-<div class="message" id="m1">Hello Shikha 🎉</div>
-<div class="message" id="m2">Tonight the stars celebrate you</div>
-<div class="message" id="m3">Because someone very special was born</div>
-<div class="message" id="m4">Happy Birthday Shikha 🎂</div>
+    <div class="card">
+        <h1>Happy Birthday</h1>
+        <span class="bhabhi-name">Shikha Bhabhi</span>
+        <hr style="border: 0; height: 1px; background: rgba(255,255,255,0.2); margin: 20px 0;">
+        <p>
+            To the most amazing Bhabhi in the world! <br>
+            May your day be filled with as much joy, laughter, <br> 
+            and love as you bring into our lives every single day.
+        </p>
+        <button class="btn" onclick="celebrate()">Click for a Surprise!</button>
+    </div>
 
-<div id="cake">🎂</div>
+    <script>
+        // Create random floating balloons
+        const container = document.getElementById('balloons');
+        const colors = ['#FFB6C1', '#FFD700', '#ADD8E6', '#98FB98', '#F08080'];
 
-<div class="message" id="final">
-May your life be filled with happiness, love and endless smiles.<br>
-You make the world brighter just by being in it.<br><br>
-Have a beautiful birthday Shikha 💖
-</div>
+        for (let i = 0; i < 30; i++) {
+            const b = document.createElement('div');
+            b.className = 'balloon';
+            b.style.left = Math.random() * 100 + '%';
+            b.style.animationDelay = Math.random() * 8 + 's';
+            b.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            container.appendChild(b);
+        }
 
-<script>
-
-function createStars(){
-for(let i=0;i<150;i++){
-let s=document.createElement("div")
-s.className="star"
-s.style.left=Math.random()*100+"%"
-s.style.top=Math.random()*100+"%"
-document.body.appendChild(s)
-}
-}
-
-function balloons(){
-setInterval(()=>{
-let b=document.createElement("div")
-b.className="balloon"
-b.innerHTML="🎈"
-b.style.left=Math.random()*100+"%"
-document.body.appendChild(b)
-setTimeout(()=>b.remove(),8000)
-},500)
-}
-
-function fireworks(){
-setInterval(()=>{
-let f=document.createElement("div")
-f.className="firework"
-f.innerHTML="✨"
-f.style.left=Math.random()*100+"%"
-f.style.top=Math.random()*80+"%"
-document.body.appendChild(f)
-setTimeout(()=>f.remove(),1500)
-},700)
-}
-
-function show(id,time){
-setTimeout(()=>{
-document.getElementById(id).classList.add("show")
-},time)
-}
-
-function start(){
-
-document.getElementById("startScreen").style.display="none"
-
-createStars()
-balloons()
-
-show("m1",1000)
-show("m2",4000)
-show("m3",7000)
-show("m4",10000)
-
-setTimeout(()=>{
-document.getElementById("cake").style.opacity="1"
-},12000)
-
-setTimeout(()=>{
-fireworks()
-document.getElementById("final").classList.add("show")
-},15000)
-
-}
-
-</script>
-
+        function celebrate() {
+            alert("✨ Sending you endless blessings and the biggest party ever! Have a blast, Shikha Bhabhi! ✨");
+        }
+    </script>
 </body>
 </html>
