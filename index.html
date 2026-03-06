@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Happy Birthday Shikha</title>
@@ -8,85 +8,77 @@
 
 body{
 margin:0;
-padding:0;
-background:linear-gradient(135deg,#ff758c,#ff7eb3);
-font-family:Arial;
-text-align:center;
+font-family: 'Segoe UI', sans-serif;
+background:linear-gradient(135deg,#ff9a9e,#fad0c4);
 overflow:hidden;
+text-align:center;
 color:white;
 }
 
-h1{
-font-size:60px;
-margin-top:50px;
-animation: glow 2s infinite alternate;
+.container{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
 }
 
-@keyframes glow{
-from{ text-shadow:0 0 10px white;}
-to{ text-shadow:0 0 30px yellow;}
+button{
+padding:15px 40px;
+font-size:20px;
+border:none;
+border-radius:40px;
+background:white;
+color:#ff4b6e;
+cursor:pointer;
+box-shadow:0 0 20px rgba(0,0,0,0.3);
+transition:0.3s;
 }
 
-.photo{
-width:220px;
-height:220px;
-border-radius:50%;
-border:6px solid white;
-margin-top:20px;
-box-shadow:0 0 25px rgba(0,0,0,0.4);
-animation: zoom 2s;
-}
-
-@keyframes zoom{
-from{transform:scale(0)}
-to{transform:scale(1)}
+button:hover{
+transform:scale(1.1);
 }
 
 .message{
-font-size:24px;
-width:70%;
-margin:auto;
-margin-top:20px;
-min-height:100px;
+display:none;
+font-size:40px;
+animation:fade 2s forwards;
 }
 
-.balloon{
+@keyframes fade{
+from{opacity:0; transform:translateY(20px)}
+to{opacity:1; transform:translateY(0)}
+}
+
+.hearts{
 position:absolute;
-bottom:-150px;
-width:70px;
-height:90px;
-border-radius:50%;
-animation: float 10s linear infinite;
+width:100%;
+height:100%;
+top:0;
+left:0;
+pointer-events:none;
+}
+
+.heart{
+position:absolute;
+color:red;
+font-size:20px;
+animation:float 6s linear infinite;
 }
 
 @keyframes float{
-from{transform:translateY(0)}
-to{transform:translateY(-1200px)}
+0%{transform:translateY(100vh); opacity:1}
+100%{transform:translateY(-10vh); opacity:0}
 }
 
-.confetti{
-position:absolute;
-width:10px;
-height:10px;
-top:-10px;
-animation: fall linear infinite;
+.fireworks{
+display:none;
+font-size:60px;
+animation:boom 1s infinite alternate;
 }
 
-@keyframes fall{
-to{
-transform:translateY(100vh) rotate(360deg);
-}
-}
-
-.cake{
-font-size:80px;
-margin-top:20px;
-animation: bounce 2s infinite;
-}
-
-@keyframes bounce{
-0%,100%{transform:translateY(0)}
-50%{transform:translateY(-15px)}
+@keyframes boom{
+from{transform:scale(1)}
+to{transform:scale(1.3)}
 }
 
 </style>
@@ -94,50 +86,83 @@ animation: bounce 2s infinite;
 
 <body>
 
-<audio autoplay loop>
-<source src="https://www2.cs.uic.edu/~i101/SoundFiles/HappyBirthday.mid">
-</audio>
+<div class="container">
 
-<h1>🎉 Happy Birthday Shikha 🎉</h1>
+<button id="startBtn">Start the Surprise</button>
 
-<img src="shikha.jpg" class="photo">
+<h1 class="message" id="msg1">Hello Shikha Bhabhi 🎉</h1>
 
-<div class="cake">🎂</div>
+<h1 class="message" id="msg2">Today is a very special day ✨</h1>
 
-<div class="message" id="text"></div>
+<h1 class="message" id="msg3">Because the world was blessed with YOU 💖</h1>
+
+<h1 class="message" id="msg4">Happy Birthday Shikha 🎂</h1>
+
+<h2 class="message" id="msg5">
+May your life be full of happiness, laughter, love and beautiful moments.  
+You are an amazing person and today is all about celebrating YOU.
+</h2>
+
+<div class="fireworks" id="fireworks">🎆 🎇 🎆 🎇</div>
+
+</div>
+
+<div class="hearts" id="hearts"></div>
 
 <script>
 
-let message="Dear Shikha Bhabhi, wishing you a day full of love, happiness and laughter. May your life always shine bright and may all your dreams come true. You are an amazing person and today we celebrate you. Happy Birthday once again 🎉🎂";
+let step=0;
 
-let i=0;
+document.getElementById("startBtn").onclick=function(){
 
-function typing(){
-if(i<message.length){
-document.getElementById("text").innerHTML+=message.charAt(i);
-i++;
-setTimeout(typing,50);
-}
+this.style.display="none";
+
+nextStep();
+
 }
 
-typing()
+function nextStep(){
 
-for(let i=0;i<25;i++){
-let balloon=document.createElement("div")
-balloon.className="balloon"
-balloon.style.left=Math.random()*100+"%"
-balloon.style.backgroundColor=`hsl(${Math.random()*360},70%,60%)`
-balloon.style.animationDuration=6+Math.random()*5+"s"
-document.body.appendChild(balloon)
+step++;
+
+let msg=document.getElementById("msg"+step);
+
+if(msg){
+msg.style.display="block";
+setTimeout(nextStep,3000);
 }
 
-for(let i=0;i<100;i++){
-let confetti=document.createElement("div")
-confetti.className="confetti"
-confetti.style.left=Math.random()*100+"%"
-confetti.style.backgroundColor=`hsl(${Math.random()*360},70%,60%)`
-confetti.style.animationDuration=3+Math.random()*4+"s"
-document.body.appendChild(confetti)
+if(step==3){
+createHearts();
+}
+
+if(step==5){
+document.getElementById("fireworks").style.display="block";
+}
+
+}
+
+function createHearts(){
+
+let container=document.getElementById("hearts");
+
+setInterval(()=>{
+
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤";
+
+heart.style.left=Math.random()*100+"%";
+heart.style.fontSize=(Math.random()*20+20)+"px";
+
+container.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},6000);
+
+},300);
+
 }
 
 </script>
