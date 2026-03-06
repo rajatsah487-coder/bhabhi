@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>Happy Birthday Shikha</title>
+<title>Shikha's Birthday</title>
 
 <style>
 
 body{
 margin:0;
-font-family: 'Segoe UI', sans-serif;
-background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+background:black;
+font-family:Arial;
 overflow:hidden;
-text-align:center;
 color:white;
+text-align:center;
 }
 
-.container{
+#startScreen{
 position:absolute;
 top:50%;
 left:50%;
@@ -23,15 +23,14 @@ transform:translate(-50%,-50%);
 }
 
 button{
-padding:15px 40px;
-font-size:20px;
+padding:18px 40px;
+font-size:22px;
 border:none;
-border-radius:40px;
-background:white;
-color:#ff4b6e;
+border-radius:50px;
+background:linear-gradient(45deg,#ff0080,#ff8c00);
+color:white;
 cursor:pointer;
-box-shadow:0 0 20px rgba(0,0,0,0.3);
-transition:0.3s;
+box-shadow:0 0 25px #ff0080;
 }
 
 button:hover{
@@ -39,46 +38,55 @@ transform:scale(1.1);
 }
 
 .message{
-display:none;
-font-size:40px;
-animation:fade 2s forwards;
-}
-
-@keyframes fade{
-from{opacity:0; transform:translateY(20px)}
-to{opacity:1; transform:translateY(0)}
-}
-
-.hearts{
 position:absolute;
 width:100%;
-height:100%;
-top:0;
-left:0;
-pointer-events:none;
+top:40%;
+font-size:45px;
+opacity:0;
+transition:2s;
 }
 
-.heart{
+.show{
+opacity:1;
+}
+
+#cake{
+font-size:120px;
 position:absolute;
-color:red;
-font-size:20px;
-animation:float 6s linear infinite;
+bottom:20%;
+left:50%;
+transform:translateX(-50%);
+opacity:0;
+transition:2s;
+}
+
+.balloon{
+position:absolute;
+font-size:35px;
+animation:float 8s linear infinite;
 }
 
 @keyframes float{
-0%{transform:translateY(100vh); opacity:1}
-100%{transform:translateY(-10vh); opacity:0}
+0%{transform:translateY(100vh)}
+100%{transform:translateY(-120vh)}
 }
 
-.fireworks{
-display:none;
-font-size:60px;
-animation:boom 1s infinite alternate;
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
 }
 
-@keyframes boom{
-from{transform:scale(1)}
-to{transform:scale(1.3)}
+.firework{
+position:absolute;
+font-size:40px;
+animation:explode 1.5s ease-out forwards;
+}
+
+@keyframes explode{
+0%{transform:scale(0)}
+100%{transform:scale(3);opacity:0}
 }
 
 </style>
@@ -86,82 +94,85 @@ to{transform:scale(1.3)}
 
 <body>
 
-<div class="container">
-
-<button id="startBtn">Start the Surprise</button>
-
-<h1 class="message" id="msg1">Hello Shikha Bhabhi 🎉</h1>
-
-<h1 class="message" id="msg2">Today is a very special day ✨</h1>
-
-<h1 class="message" id="msg3">Because the world was blessed with YOU 💖</h1>
-
-<h1 class="message" id="msg4">Happy Birthday Shikha 🎂</h1>
-
-<h2 class="message" id="msg5">
-May your life be full of happiness, laughter, love and beautiful moments.  
-You are an amazing person and today is all about celebrating YOU.
-</h2>
-
-<div class="fireworks" id="fireworks">🎆 🎇 🎆 🎇</div>
-
+<div id="startScreen">
+<h1>✨ A Special Surprise ✨</h1>
+<button onclick="start()">Begin Shikha's Birthday</button>
 </div>
 
-<div class="hearts" id="hearts"></div>
+<div class="message" id="m1">Hello Shikha 🎉</div>
+<div class="message" id="m2">Tonight the stars celebrate you</div>
+<div class="message" id="m3">Because someone very special was born</div>
+<div class="message" id="m4">Happy Birthday Shikha 🎂</div>
+
+<div id="cake">🎂</div>
+
+<div class="message" id="final">
+May your life be filled with happiness, love and endless smiles.<br>
+You make the world brighter just by being in it.<br><br>
+Have a beautiful birthday Shikha 💖
+</div>
 
 <script>
 
-let step=0;
-
-document.getElementById("startBtn").onclick=function(){
-
-this.style.display="none";
-
-nextStep();
-
+function createStars(){
+for(let i=0;i<150;i++){
+let s=document.createElement("div")
+s.className="star"
+s.style.left=Math.random()*100+"%"
+s.style.top=Math.random()*100+"%"
+document.body.appendChild(s)
+}
 }
 
-function nextStep(){
-
-step++;
-
-let msg=document.getElementById("msg"+step);
-
-if(msg){
-msg.style.display="block";
-setTimeout(nextStep,3000);
-}
-
-if(step==3){
-createHearts();
-}
-
-if(step==5){
-document.getElementById("fireworks").style.display="block";
-}
-
-}
-
-function createHearts(){
-
-let container=document.getElementById("hearts");
-
+function balloons(){
 setInterval(()=>{
+let b=document.createElement("div")
+b.className="balloon"
+b.innerHTML="🎈"
+b.style.left=Math.random()*100+"%"
+document.body.appendChild(b)
+setTimeout(()=>b.remove(),8000)
+},500)
+}
 
-let heart=document.createElement("div");
-heart.className="heart";
-heart.innerHTML="❤";
+function fireworks(){
+setInterval(()=>{
+let f=document.createElement("div")
+f.className="firework"
+f.innerHTML="✨"
+f.style.left=Math.random()*100+"%"
+f.style.top=Math.random()*80+"%"
+document.body.appendChild(f)
+setTimeout(()=>f.remove(),1500)
+},700)
+}
 
-heart.style.left=Math.random()*100+"%";
-heart.style.fontSize=(Math.random()*20+20)+"px";
+function show(id,time){
+setTimeout(()=>{
+document.getElementById(id).classList.add("show")
+},time)
+}
 
-container.appendChild(heart);
+function start(){
+
+document.getElementById("startScreen").style.display="none"
+
+createStars()
+balloons()
+
+show("m1",1000)
+show("m2",4000)
+show("m3",7000)
+show("m4",10000)
 
 setTimeout(()=>{
-heart.remove();
-},6000);
+document.getElementById("cake").style.opacity="1"
+},12000)
 
-},300);
+setTimeout(()=>{
+fireworks()
+document.getElementById("final").classList.add("show")
+},15000)
 
 }
 
