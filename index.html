@@ -18,7 +18,7 @@ color:white;
 
 h1{
 font-size:60px;
-margin-top:80px;
+margin-top:50px;
 animation: glow 2s infinite alternate;
 }
 
@@ -27,23 +27,27 @@ from{ text-shadow:0 0 10px white;}
 to{ text-shadow:0 0 30px yellow;}
 }
 
+.photo{
+width:220px;
+height:220px;
+border-radius:50%;
+border:6px solid white;
+margin-top:20px;
+box-shadow:0 0 25px rgba(0,0,0,0.4);
+animation: zoom 2s;
+}
+
+@keyframes zoom{
+from{transform:scale(0)}
+to{transform:scale(1)}
+}
+
 .message{
 font-size:24px;
 width:70%;
 margin:auto;
-margin-top:30px;
-min-height:120px;
-}
-
-.cake{
-font-size:90px;
 margin-top:20px;
-animation: bounce 2s infinite;
-}
-
-@keyframes bounce{
-0%,100%{transform:translateY(0)}
-50%{transform:translateY(-20px)}
+min-height:100px;
 }
 
 .balloon{
@@ -74,6 +78,17 @@ transform:translateY(100vh) rotate(360deg);
 }
 }
 
+.cake{
+font-size:80px;
+margin-top:20px;
+animation: bounce 2s infinite;
+}
+
+@keyframes bounce{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-15px)}
+}
+
 </style>
 </head>
 
@@ -85,13 +100,15 @@ transform:translateY(100vh) rotate(360deg);
 
 <h1>🎉 Happy Birthday Shikha 🎉</h1>
 
+<img src="shikha.jpg" class="photo">
+
 <div class="cake">🎂</div>
 
 <div class="message" id="text"></div>
 
 <script>
 
-let message="Dear Shikha Bhabhi, wishing you a day full of happiness, love and beautiful moments. May your life always be filled with smiles, success and endless joy. Today is your special day and we celebrate you. Happy Birthday once again 🎉🎂";
+let message="Dear Shikha Bhabhi, wishing you a day full of love, happiness and laughter. May your life always shine bright and may all your dreams come true. You are an amazing person and today we celebrate you. Happy Birthday once again 🎉🎂";
 
 let i=0;
 
