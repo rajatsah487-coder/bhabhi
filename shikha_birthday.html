@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Shikha</title>
+
+<style>
+
+body{
+margin:0;
+padding:0;
+background:linear-gradient(135deg,#ff758c,#ff7eb3);
+font-family:Arial;
+text-align:center;
+overflow:hidden;
+color:white;
+}
+
+h1{
+font-size:60px;
+margin-top:80px;
+animation: glow 2s infinite alternate;
+}
+
+@keyframes glow{
+from{ text-shadow:0 0 10px white;}
+to{ text-shadow:0 0 30px yellow;}
+}
+
+.message{
+font-size:24px;
+width:70%;
+margin:auto;
+margin-top:30px;
+min-height:120px;
+}
+
+.cake{
+font-size:90px;
+margin-top:20px;
+animation: bounce 2s infinite;
+}
+
+@keyframes bounce{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-20px)}
+}
+
+.balloon{
+position:absolute;
+bottom:-150px;
+width:70px;
+height:90px;
+border-radius:50%;
+animation: float 10s linear infinite;
+}
+
+@keyframes float{
+from{transform:translateY(0)}
+to{transform:translateY(-1200px)}
+}
+
+.confetti{
+position:absolute;
+width:10px;
+height:10px;
+top:-10px;
+animation: fall linear infinite;
+}
+
+@keyframes fall{
+to{
+transform:translateY(100vh) rotate(360deg);
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<audio autoplay loop>
+<source src="https://www2.cs.uic.edu/~i101/SoundFiles/HappyBirthday.mid">
+</audio>
+
+<h1>🎉 Happy Birthday Shikha 🎉</h1>
+
+<div class="cake">🎂</div>
+
+<div class="message" id="text"></div>
+
+<script>
+
+let message="Dear Shikha Bhabhi, wishing you a day full of happiness, love and beautiful moments. May your life always be filled with smiles, success and endless joy. Today is your special day and we celebrate you. Happy Birthday once again 🎉🎂";
+
+let i=0;
+
+function typing(){
+if(i<message.length){
+document.getElementById("text").innerHTML+=message.charAt(i);
+i++;
+setTimeout(typing,50);
+}
+}
+
+typing()
+
+for(let i=0;i<25;i++){
+let balloon=document.createElement("div")
+balloon.className="balloon"
+balloon.style.left=Math.random()*100+"%"
+balloon.style.backgroundColor=`hsl(${Math.random()*360},70%,60%)`
+balloon.style.animationDuration=6+Math.random()*5+"s"
+document.body.appendChild(balloon)
+}
+
+for(let i=0;i<100;i++){
+let confetti=document.createElement("div")
+confetti.className="confetti"
+confetti.style.left=Math.random()*100+"%"
+confetti.style.backgroundColor=`hsl(${Math.random()*360},70%,60%)`
+confetti.style.animationDuration=3+Math.random()*4+"s"
+document.body.appendChild(confetti)
+}
+
+</script>
+
+</body>
+</html>
